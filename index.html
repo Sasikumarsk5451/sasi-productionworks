@@ -939,18 +939,19 @@ footer {
         <div class="logo">
             Sasikumar <span>C</span>
         </div>
-
+       
+    <a
+        href="https://www.instagram.com/xylem_tamil"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link"
+    >
+        Instagram ↗
+        
+    </a>
+        
         <a
-            href="https://www.instagram.com/xylem_tamil"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="nav-link"
-        >
-            Instagram ↗
-        </a>
-
-        <a
-            href="https://www.youtube.com/@XylemNEETProTamil"
+            href="https://www.youtube.com/@XylemNEETTamil"
             target="_blank"
             rel="noopener noreferrer"
             class="nav-link"
@@ -1256,20 +1257,25 @@ const normalShorts = [
 
 
 /* =========================================================
-   EXTRACT YOUTUBE VIDEO ID
+   EXTRACT VIDEO PLATFORM & ID
 ========================================================= */
 
-function getYouTubeVideoId(url) {
+function getVideoDetails(url) {
+    if (!url) return null;
 
-    if (!url) {
-        return null;
+    // Check for YouTube
+    const ytMatch = url.match(/(?:v=|\/shorts\/|\/live\/|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    if (ytMatch) {
+        return { platform: 'youtube', id: ytMatch[1] };
     }
 
-    const match = url.match(
-        /(?:v=|\/shorts\/|\/live\/|youtu\.be\/)([A-Za-z0-9_-]{11})/
-    );
+    // Check for Instagram Reel/Post
+    const igMatch = url.match(/(?:instagram\.com\/reel\/|instagram\.com\/p\/)([A-Za-z0-9_-]+)/);
+    if (igMatch) {
+        return { platform: 'instagram', id: igMatch[1] };
+    }
 
-    return match ? match[1] : null;
+    return null;
 }
 
 
@@ -1277,117 +1283,75 @@ function getYouTubeVideoId(url) {
    BUILD VIDEO CARDS
 ========================================================= */
 
-function buildCards(
-    urls,
-    containerId,
-    label,
-    isShort
-) {
-
-    const container =
-        document.getElementById(containerId);
-
-    if (!container) {
-        return;
-    }
+function buildCards(urls, containerId, label, isShort) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
 
     urls.forEach((url, index) => {
+        const details = getVideoDetails(url);
 
-        const vidId =
-            getYouTubeVideoId(url);
-
-        if (!vidId) {
-            console.warn(
-                "Invalid YouTube URL:",
-                url
-            );
-
+        if (!details) {
+            console.warn("Invalid URL:", url);
             return;
         }
 
+        let imgSrc = '';
 
-        /*
-         * Shorts:
-         * Use hqdefault because it works reliably
-         * with vertical YouTube Shorts thumbnails.
-         *
-         * Long-form:
-         * Use maxresdefault.
-         */
+        if (details.platform === 'youtube') {
+            /*
+             * Shorts: Use hqdefault (works well for vertical thumbs)
+             * Long-form: Use maxresdefault
+             */
+            imgSrc = isShort
+                ? `https://img.youtube.com/vi/${details.id}/hqdefault.jpg`
+                : `https://img.youtube.com/vi/${details.id}/maxresdefault.jpg`;
+        } else if (details.platform === 'instagram') {
+            /*
+             * Instagram embeds are restrictive. We generate a clean,
+             * stylistic placeholder image matching your UI theme.
+             */
+            imgSrc = `https://placehold.co/600x1067/111a28/63b3ff?text=Instagram+Reel`;
+        }
 
-        const imgSrc = isShort
-
-            ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`
-
-            : `https://img.youtube.com/vi/${vidId}/maxresdefault.jpg`;
-
-
-        const article =
-            document.createElement("article");
-
+        const article = document.createElement("article");
         article.className = "card";
 
-
-        /*
-         * IMPORTANT:
-         *
-         * Each title element receives the exact
-         * video ID and original URL.
-         *
-         * This guarantees that the title returned
-         * belongs to THIS card only.
-         */
-
         article.innerHTML = `
-
             <a
                 href="${url}"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="card-link"
             >
-
                 <div class="thumbnail">
-
                     <img
                         src="${imgSrc}"
-                        alt="Xylem Learning Content"
+                        alt="Media Content"
                         loading="lazy"
                     >
-
                     <div class="play-button">
                         ▶
                     </div>
-
                 </div>
-
             </a>
-
-
             <div class="card-content">
-
                 <p class="card-label ${isShort ? "short-card-label" : ""}">
                     ${label}
                 </p>
-
                 <p
                     class="card-title yt-title loading"
                     data-original-url="${url}"
-                    data-vid-id="${vidId}"
+                    data-vid-id="${details.id}"
+                    data-platform="${details.platform}"
                     data-index="${index}"
                 >
                     Loading title...
                 </p>
-
             </div>
-
         `;
 
-
         container.appendChild(article);
-
     });
-
 }
 
 
@@ -1402,14 +1366,12 @@ buildCards(
     false
 );
 
-
 buildCards(
     creativeShorts,
     "creative-shorts-grid",
     "Creative Shorts",
     true
 );
-
 
 buildCards(
     normalShorts,
@@ -1424,36 +1386,22 @@ buildCards(
 ========================================================= */
 
 async function fetchNoEmbedTitle(url) {
-
-    const endpoint =
-        `https://noembed.com/embed?url=${encodeURIComponent(url)}`;
-
-    const response =
-        await fetch(endpoint, {
-            method: "GET",
-            cache: "no-store"
-        });
+    const endpoint = `https://noembed.com/embed?url=${encodeURIComponent(url)}`;
+    const response = await fetch(endpoint, {
+        method: "GET",
+        cache: "no-store"
+    });
 
     if (!response.ok) {
-        throw new Error(
-            `Noembed HTTP ${response.status}`
-        );
+        throw new Error(`Noembed HTTP ${response.status}`);
     }
 
-    const data =
-        await response.json();
-
-    if (
-        !data ||
-        !data.title
-    ) {
-        throw new Error(
-            "No title returned"
-        );
+    const data = await response.json();
+    if (!data || !data.title) {
+        throw new Error("No title returned");
     }
 
     return data.title.trim();
-
 }
 
 
@@ -1462,36 +1410,22 @@ async function fetchNoEmbedTitle(url) {
 ========================================================= */
 
 async function fetchYouTubeOEmbedTitle(url) {
-
-    const endpoint =
-        `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
-
-    const response =
-        await fetch(endpoint, {
-            method: "GET",
-            cache: "no-store"
-        });
+    const endpoint = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
+    const response = await fetch(endpoint, {
+        method: "GET",
+        cache: "no-store"
+    });
 
     if (!response.ok) {
-        throw new Error(
-            `YouTube oEmbed HTTP ${response.status}`
-        );
+        throw new Error(`YouTube oEmbed HTTP ${response.status}`);
     }
 
-    const data =
-        await response.json();
-
-    if (
-        !data ||
-        !data.title
-    ) {
-        throw new Error(
-            "YouTube did not return a title"
-        );
+    const data = await response.json();
+    if (!data || !data.title) {
+        throw new Error("YouTube did not return a title");
     }
 
     return data.title.trim();
-
 }
 
 
@@ -1499,127 +1433,41 @@ async function fetchYouTubeOEmbedTitle(url) {
    TITLE FETCH WITH FALLBACKS
 ========================================================= */
 
-async function getExactYouTubeTitle(
-    originalUrl,
-    videoId
-) {
-
-    /*
-     * IMPORTANT:
-     *
-     * First attempt uses the ORIGINAL URL.
-     *
-     * This is especially important for Shorts.
-     */
-
+async function getExactYouTubeTitle(originalUrl, videoId) {
+    // 1st Attempt: Original URL
     try {
-
-        const title =
-            await fetchNoEmbedTitle(
-                originalUrl
-            );
-
-        if (title) {
-            return title;
-        }
-
+        const title = await fetchNoEmbedTitle(originalUrl);
+        if (title) return title;
     } catch (error) {
-
-        console.warn(
-            "Noembed original URL failed:",
-            videoId
-        );
-
+        // Continue to fallback
     }
 
-
-    /*
-     * Second attempt:
-     * YouTube's own oEmbed endpoint.
-     */
-
+    // 2nd Attempt: YouTube oEmbed directly
     try {
-
-        const title =
-            await fetchYouTubeOEmbedTitle(
-                originalUrl
-            );
-
-        if (title) {
-            return title;
-        }
-
+        const title = await fetchYouTubeOEmbedTitle(originalUrl);
+        if (title) return title;
     } catch (error) {
-
-        console.warn(
-            "YouTube oEmbed failed:",
-            videoId
-        );
-
+        // Continue to fallback
     }
 
-
-    /*
-     * Third attempt:
-     * Convert ONLY the current video ID
-     * into its standard watch URL.
-     *
-     * This does NOT mix titles between cards.
-     */
-
-    const standardWatchUrl =
-        `https://www.youtube.com/watch?v=${videoId}`;
-
-
+    // 3rd Attempt: Standardized Watch URL via Noembed
+    const standardWatchUrl = `https://www.youtube.com/watch?v=${videoId}`;
     try {
-
-        const title =
-            await fetchNoEmbedTitle(
-                standardWatchUrl
-            );
-
-        if (title) {
-            return title;
-        }
-
+        const title = await fetchNoEmbedTitle(standardWatchUrl);
+        if (title) return title;
     } catch (error) {
-
-        console.warn(
-            "Noembed standard URL failed:",
-            videoId
-        );
-
+        // Continue to fallback
     }
 
-
-    /*
-     * Fourth attempt:
-     * YouTube oEmbed using standard watch URL.
-     */
-
+    // 4th Attempt: Standardized Watch URL via YouTube oEmbed
     try {
-
-        const title =
-            await fetchYouTubeOEmbedTitle(
-                standardWatchUrl
-            );
-
-        if (title) {
-            return title;
-        }
-
+        const title = await fetchYouTubeOEmbedTitle(standardWatchUrl);
+        if (title) return title;
     } catch (error) {
-
-        console.warn(
-            "YouTube standard oEmbed failed:",
-            videoId
-        );
-
+        // Failed entirely
     }
-
 
     return null;
-
 }
 
 
@@ -1628,96 +1476,55 @@ async function getExactYouTubeTitle(
 ========================================================= */
 
 async function updateTitleElement(el) {
+    const originalUrl = el.getAttribute("data-original-url");
+    const videoId = el.getAttribute("data-vid-id");
+    const platform = el.getAttribute("data-platform");
 
-    const originalUrl =
-        el.getAttribute(
-            "data-original-url"
-        );
-
-    const videoId =
-        el.getAttribute(
-            "data-vid-id"
-        );
-
-
-    if (
-        !originalUrl ||
-        !videoId
-    ) {
+    if (!originalUrl || !videoId || !platform) {
         return;
     }
 
-
-    try {
-
-        const title =
-            await getExactYouTubeTitle(
-                originalUrl,
-                videoId
-            );
-
-
-        /*
-         * CRITICAL:
-         *
-         * We update THIS exact element.
-         *
-         * No array index is used to assign titles.
-         *
-         * Therefore title #50 cannot accidentally
-         * appear on card #51.
-         */
-
-        if (title) {
-
-            el.textContent =
-                title;
-
-            el.classList.remove(
-                "loading",
-                "error"
-            );
-
-            el.classList.add(
-                "loaded"
-            );
-
-        } else {
-
-            el.textContent =
-                "Xylem Learning Video";
-
-            el.classList.remove(
-                "loading"
-            );
-
-            el.classList.add(
-                "error"
-            );
-
+    // Handle Instagram separately
+    if (platform === 'instagram') {
+        try {
+            // Instagram rarely works via open oembed, but we'll try just in case.
+            const title = await fetchNoEmbedTitle(originalUrl);
+            if (title) {
+                el.textContent = title;
+                el.classList.remove("loading", "error");
+                el.classList.add("loaded");
+                return;
+            }
+        } catch (error) {
+            // Ignore error for IG, use fallback text
         }
-
-    } catch (error) {
-
-        console.error(
-            "Title loading failed:",
-            videoId,
-            error
-        );
-
-        el.textContent =
-            "Xylem Learning Video";
-
-        el.classList.remove(
-            "loading"
-        );
-
-        el.classList.add(
-            "error"
-        );
-
+        
+        // Default text for IG Reels when API is blocked
+        el.textContent = "Instagram Reel";
+        el.classList.remove("loading", "error");
+        el.classList.add("loaded");
+        return;
     }
 
+    // Handle YouTube
+    try {
+        const title = await getExactYouTubeTitle(originalUrl, videoId);
+
+        if (title) {
+            el.textContent = title;
+            el.classList.remove("loading", "error");
+            el.classList.add("loaded");
+        } else {
+            el.textContent = "Xylem Learning Video";
+            el.classList.remove("loading");
+            el.classList.add("error");
+        }
+    } catch (error) {
+        console.error("Title loading failed:", videoId, error);
+        el.textContent = "Xylem Learning Video";
+        el.classList.remove("loading");
+        el.classList.add("error");
+    }
 }
 
 
@@ -1726,70 +1533,22 @@ async function updateTitleElement(el) {
 ========================================================= */
 
 async function fetchTitles() {
+    const elements = Array.from(document.querySelectorAll(".yt-title"));
 
-    const elements =
-        Array.from(
-            document.querySelectorAll(
-                ".yt-title"
-            )
-        );
-
-
-    /*
-     * Process in small batches.
-     *
-     * This reduces the chance of the free
-     * oEmbed/noembed services rate-limiting
-     * the page when there are 200+ videos.
-     */
-
+    // Process in small batches to avoid rate-limiting
     const batchSize = 5;
 
-
-    for (
-        let i = 0;
-        i < elements.length;
-        i += batchSize
-    ) {
-
-        const batch =
-            elements.slice(
-                i,
-                i + batchSize
-            );
-
+    for (let i = 0; i < elements.length; i += batchSize) {
+        const batch = elements.slice(i, i + batchSize);
 
         await Promise.all(
-            batch.map(
-                element =>
-                    updateTitleElement(
-                        element
-                    )
-            )
+            batch.map(element => updateTitleElement(element))
         );
 
-
-        /*
-         * Small delay between batches.
-         */
-
-        if (
-            i + batchSize <
-            elements.length
-        ) {
-
-            await new Promise(
-                resolve =>
-                    setTimeout(
-                        resolve,
-                        250
-                    )
-            );
-
+        if (i + batchSize < elements.length) {
+            await new Promise(resolve => setTimeout(resolve, 250));
         }
-
     }
-
 }
 
 
@@ -1797,19 +1556,10 @@ async function fetchTitles() {
    START TITLE FETCHING
 ========================================================= */
 
-if (
-    document.readyState === "loading"
-) {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        fetchTitles
-    );
-
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fetchTitles);
 } else {
-
     fetchTitles();
-
 }
 
 
