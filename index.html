@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sasikumar C | Brand & Digital Strategist & Creative Director</title>
+
+    <meta
+        name="description"
+        content="Sasikumar C — Brand & Digital Strategist & Creative Director. Selected media work for Xylem Learning."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+<style>
+
+/* =========================================================
+   ROOT & RESET
+========================================================= */
+
+:root {
+    --bg: #05070d;
+    --bg-2: #090d17;
+    --text: #f7f9fc;
+    --muted: #9ca7ba;
+    --accent: #63b3ff;
+    --accent-2: #9c7cff;
+    --card: rgba(255,255,255,.055);
+    --card-hover: rgba(255,255,255,.08);
+    --border: rgba(255,255,255,.11);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(55,120,255,.17),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(145,70,255,.14),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(0,185,255,.08),
+            transparent 30%
+        ),
+        var(--bg);
+
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND EFFECTS
+========================================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: .17;
+    animation: floating 14s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+    width: 360px;
+    height: 360px;
+    background: #1677ff;
+    top: -80px;
+    left: -120px;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #863cff;
+    top: 40%;
+    right: -100px;
+    animation-delay: -4s;
+}
+
+.orb-3 {
+    width: 240px;
+    height: 240px;
+    background: #00bfff;
+    bottom: -80px;
+    left: 42%;
+    animation-delay: -8s;
+}
+
+@keyframes floating {
+    from {
+        transform: translate3d(0,-20px,0) scale(1);
+    }
+
+    to {
+        transform: translate3d(35px,30px,0) scale(1.08);
+    }
+}
+
+.grid-background {
+    position: fixed;
+    inset: 0;
+    z-index: -9;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+}
+
+
+/* =========================================================
+   NAVIGATION & HERO
+========================================================= */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(5,7,13,.72);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.nav-inner {
+    max-width: 1380px;
+    margin: auto;
+
+    padding: 19px 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.04em;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-link {
+    color: #dce4f1;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    padding: 10px 17px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50px;
+
+    transition: .25s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.25);
+    transform: translateY(-1px);
+}
+
+.hero {
+    max-width: 1380px;
+    min-height: 650px;
+
+    margin: auto;
+
+    padding: 110px 35px 100px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-eyebrow {
+    width: fit-content;
+
+    padding: 8px 15px;
+
+    border: 1px solid rgba(99,179,255,.25);
+    border-radius: 50px;
+
+    background: rgba(99,179,255,.07);
+
+    color: var(--accent);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: .16em;
+    text-transform: uppercase;
+
+    margin-bottom: 28px;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(58px, 10vw, 138px);
+
+    line-height: .88;
+
+    letter-spacing: -.065em;
+
+    max-width: 1100px;
+}
+
+.hero h1 span {
+    display: block;
+
+    background:
+        linear-gradient(
+            105deg,
+            #ffffff 15%,
+            #72baff 55%,
+            #a982ff 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-role {
+    margin-top: 25px;
+
+    font-size: clamp(19px, 2.7vw, 34px);
+
+    line-height: 1.3;
+
+    font-weight: 600;
+
+    letter-spacing: -.025em;
+
+    color: #dfe7f4;
+}
+
+.hero-role span {
+    color: var(--accent);
+}
+
+.hero-description {
+    max-width: 720px;
+
+    margin-top: 28px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.hero-line {
+    width: 120px;
+    height: 2px;
+
+    margin-top: 45px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--accent),
+            var(--accent-2),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   MAIN & SECTIONS
+========================================================= */
+
+main {
+    max-width: 1380px;
+
+    margin: auto;
+
+    padding: 0 35px 130px;
+}
+
+.client-intro {
+    margin-top: 20px;
+    margin-bottom: 80px;
+
+    padding: 35px 0;
+
+    border-top: 1px solid rgba(255,255,255,.08);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 40px;
+}
+
+.client-label {
+    color: var(--accent);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .16em;
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+}
+
+.client-name {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(30px, 4vw, 48px);
+
+    letter-spacing: -.04em;
+}
+
+.client-description {
+    max-width: 500px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.portfolio-section {
+    margin-top: 90px;
+}
+
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.section-number {
+    color: var(--accent);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .15em;
+
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: clamp(29px, 4vw, 48px);
+
+    line-height: 1.05;
+
+    letter-spacing: -.045em;
+}
+
+.section-subtitle {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    margin-top: 12px;
+
+    line-height: 1.6;
+}
+
+.video-count {
+    color: #7f8a9d;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CARDS & GRIDS
+========================================================= */
+
+.video-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0,1fr)
+        );
+
+    gap: 22px;
+}
+
+.card {
+    position: relative;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+
+    animation:
+        cardAppear .65s both;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+
+    background: var(--card-hover);
+
+    border-color: rgba(99,179,255,.35);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45),
+        0 0 40px rgba(80,140,255,.08);
+}
+
+.card-link {
+    display: block;
+
+    text-decoration: none;
+
+    color: inherit;
+}
+
+.thumbnail {
+    position: relative;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #111722;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .5s ease,
+        filter .5s ease;
+}
+
+.card:hover .thumbnail img {
+    transform: scale(1.07);
+
+    filter: brightness(.68);
+}
+
+.thumbnail::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.65),
+            transparent 62%
+        );
+
+    pointer-events: none;
+}
+
+.play-button {
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.92);
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.94);
+
+    color: #111827;
+
+    font-size: 20px;
+
+    padding-left: 3px;
+
+    box-shadow:
+        0 12px 45px rgba(0,0,0,.4);
+
+    transition: .3s ease;
+}
+
+.card:hover .play-button {
+    transform:
+        translate(-50%,-50%)
+        scale(1.1);
+
+    box-shadow:
+        0 0 0 9px rgba(255,255,255,.08),
+        0 15px 50px rgba(0,0,0,.5);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-label {
+    display: block;
+
+    color: var(--accent);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+
+    min-height: 11px;
+}
+
+.card-title {
+    display: block;
+
+    color: #f2f5fa;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SHORT FORM OVERRIDES
+========================================================= */
+
+.short-form .video-grid {
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0,1fr)
+        );
+
+    gap: 18px;
+}
+
+.short-form .card {
+    border-radius: 3px;
+
+    background: #111a28;
+
+    border: 1px solid #27364b;
+
+    box-shadow: none;
+
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.short-form .card:hover {
+    transform: translateY(-5px);
+
+    background: #111a28;
+
+    border-color: #3f5573;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.5);
+}
+
+.short-form .thumbnail {
+    aspect-ratio: 9 / 16;
+
+    border-bottom: 1px solid #27364b;
+}
+
+.short-form .card-content {
+    padding: 14px;
+
+    background: #111a28;
+
+    /* IMPORTANT:
+       Keeps label + title visible */
+    display: block;
+}
+
+.short-form .card-label,
+.short-form .short-card-label {
+    display: block;
+
+    visibility: visible;
+
+    opacity: 1;
+
+    height: auto;
+
+    color: var(--accent);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 9px;
+
+    min-height: 12px;
+}
+
+.short-form .card-title {
+    display: block;
+
+    font-size: 13.5px;
+
+    line-height: 1.45;
+
+    font-weight: 600;
+
+    color: #ffffff;
+
+    min-height: 39px;
+}
+
+.short-form .play-button {
+    width: 50px;
+    height: 50px;
+
+    background:
+        rgba(0, 0, 0, 0.45);
+
+    border:
+        2px solid rgba(255, 255, 255, 0.4);
+
+    color: #8cb4ff;
+
+    padding-left: 4px;
+
+    font-size: 16px;
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    box-shadow: none;
+}
+
+.short-form .card:hover .play-button {
+    background:
+        rgba(0, 0, 0, 0.7);
+
+    border-color:
+        rgba(255, 255, 255, 0.75);
+
+    transform:
+        translate(-50%,-50%)
+        scale(1.05);
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   TITLE LOADING STATE
+========================================================= */
+
+.yt-title.loading {
+    opacity: .65;
+}
+
+.yt-title.loaded {
+    opacity: 1;
+}
+
+.yt-title.error {
+    color: #aeb8c8;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    color: #788397;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width:1050px) {
+
+    .video-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+    }
+
+    .short-form .video-grid {
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+    }
+}
+
+
+@media (max-width:680px) {
+
+    .nav-inner {
+        padding: 16px 20px;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+    }
+
+    .hero {
+        min-height: 560px;
+
+        padding:
+            80px 20px 70px;
+    }
+
+    .hero-role {
+        font-size: 19px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    main {
+        padding:
+            0 20px 90px;
+    }
+
+    .client-intro {
+        display: block;
+    }
+
+    .client-description {
+        margin-top: 20px;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .short-form .video-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+        gap: 12px;
+    }
+
+    .section-header {
+        display: block;
+    }
+
+    .video-count {
+        display: block;
+
+        margin-top: 15px;
+    }
+
+    footer {
+        padding: 40px 20px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="background">
+
+    <div class="orb orb-1"></div>
+
+    <div class="orb orb-2"></div>
+
+    <div class="orb orb-3"></div>
+
+</div>
+
+<div class="grid-background"></div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav>
+
+    <div class="nav-inner">
+
+        <div class="logo">
+            Sasikumar <span>C</span>
+        </div>
+
+        <a
+            href="https://www.youtube.com/@XylemNEETTamil"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-link"
+        >
+            300+ Videos ↗
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="hero">
+
+    <div class="hero-eyebrow">
+        Personal Portfolio
+    </div>
+
+    <h1>
+        <span>Sasikumar C</span>
+    </h1>
+
+    <div class="hero-role">
+        Brand &amp; Digital Strategist
+        <span>&amp;</span>
+        Creative Director
+    </div>
+
+    <p class="hero-description">
+        Building brands through strategic thinking,
+        digital storytelling, creative direction
+        and purposeful content.
+    </p>
+
+    <div class="hero-line"></div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+    <!-- =====================================================
+         CLIENT INTRO
+    ====================================================== -->
+
+    <section class="client-intro">
+
+        <div>
+
+            <div class="client-label">
+                My Top Works
+            </div>
+
+            <div class="client-name">
+                Xylem Learning
+            </div>
+
+        </div>
+
+        <p class="client-description">
+            A curated collection of long-form and short-form
+            media across content strategy, creative direction,
+            shoot support, hosting and content.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         SECTION 01: LONG FORM
+    ====================================================== -->
+
+    <section class="portfolio-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    01 / LONG-FORM MEDIA
+                </div>
+
+                <h2 class="section-title">
+                    Long-Form Media
+                </h2>
+
+                <p class="section-subtitle">
+                    Content Strategy + Creative Direction
+                </p>
+
+            </div>
+
+            <div class="video-count">
+                Selected Work
+            </div>
+
+        </div>
+
+        <div
+            class="video-grid"
+            id="long-videos-grid"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SECTION 02: CREATIVE SHORTS
+    ====================================================== -->
+
+    <section class="portfolio-section short-form">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    02 / SHORT-FORM MEDIA
+                </div>
+
+                <h2 class="section-title">
+                    Creative Shorts
+                </h2>
+
+                <p class="section-subtitle">
+                    Content Strategy + Creative Direction + Shoot Support
+                </p>
+
+            </div>
+
+            <div class="video-count">
+                Selected Work
+            </div>
+
+        </div>
+
+        <div
+            class="video-grid"
+            id="creative-shorts-grid"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SECTION 03: NORMAL SHORTS
+    ====================================================== -->
+
+    <section class="portfolio-section short-form">
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="section-number">
+                    03 / SHORT-FORM MEDIA
+                </div>
+
+                <h2 class="section-title">
+                    Normal Shorts
+                </h2>
+
+                <p class="section-subtitle">
+                    Host + Content
+                </p>
+
+            </div>
+
+            <div class="video-count">
+                Selected Work
+            </div>
+
+        </div>
+
+        <div
+            class="video-grid"
+            id="normal-shorts-grid"
+        ></div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+    © 2026 Sasikumar C · Brand &amp; Digital Strategist &amp; Creative Director
+</footer>
+
+
+<script>
+
+
+/* =========================================================
+   LONG-FORM VIDEO DATA
+========================================================= */
+
+const longVideos = [
+    "https://youtu.be/gaCnFYPgR9w?si=2edbcBNqDTD7Vbf8",
+    "https://youtu.be/6u2nyvIm3rA?si=l-QB24xNZxfJOg3X",
+    "https://youtu.be/IubYNb6W-LM?si=oJinctQ59i8E5Mal",
+    "https://youtu.be/wBdSjIH3E3k?si=VEfQ6LTB94p8NB0R",
+    "https://youtu.be/fEZdRM5mvZQ?si=PpRy-5adtMaOHIfT",
+    "https://youtu.be/tBYKTMzEjjo?si=REze_E68W3NIHHw8",
+    "https://youtu.be/jCYOedpREgU?si=f1nnFbdXxAnWhEwm",
+    "https://youtu.be/N3fZHaRBesg?si=DgfUlV6GBIZlFCkv",
+    "https://youtu.be/g4TtDxdD78A?si=W88b1FPbtOcOp-ne",
+    "https://youtu.be/ulhgX0ujeC4?si=cgxYTeyAVAN_xWh_"
+];
+
+
+/* =========================================================
+   CREATIVE SHORTS DATA
+========================================================= */
+
+const creativeShorts = [
+    "https://www.youtube.com/shorts/KvzeV8ghr5U",
+    "https://www.instagram.com/reel/DPWTABdE3ha/?igsi=NTNtdHJkeXkyNDQ0",
+    "https://www.youtube.com/shorts/lJWuRUm5Wuc",
+    "https://www.youtube.com/shorts/8Crjj0re3zg",
+    "https://www.youtube.com/shorts/d1cFeq1l2yA",
+    "https://www.youtube.com/shorts/O2wwq1FZxtg",
+    "https://www.youtube.com/shorts/XEU6L1lsi2U",
+    "https://www.youtube.com/shorts/AuseszzL1ds",
+    "https://www.youtube.com/shorts/pWxg024gZPk",
+    "https://www.youtube.com/shorts/3eG52QrSk5s",
+    "https://www.youtube.com/shorts/vnwKIQDv3qs",
+    "https://www.youtube.com/shorts/le2L_78QtmE",
+    "https://www.youtube.com/shorts/1fD6xfatgbE",
+    "https://www.youtube.com/shorts/dXwxC9MM1I0"
+];
+
+
+/* =========================================================
+   NORMAL SHORTS DATA
+========================================================= */
+
+const normalShorts = [
+    "https://www.youtube.com/shorts/tB8AXEHAsYE",
+    "https://www.youtube.com/shorts/quX_4x7wMHE",
+    "https://www.youtube.com/shorts/bMtbOJLzbww",
+    "https://www.youtube.com/shorts/SmRQer19dSE",
+    "https://www.youtube.com/shorts/ceNIjYSQmag",
+    "https://www.youtube.com/shorts/8UYbJYshxQA",
+    "https://www.youtube.com/shorts/2wBOVG2oABo",
+    "https://www.youtube.com/shorts/OHKi_7_YE9c",
+    "https://www.youtube.com/shorts/VAngGHqlctQ",
+    "https://www.youtube.com/shorts/O28ts6F70Mg",
+    "https://www.youtube.com/shorts/_xbFXj2AsQo",
+    "https://www.youtube.com/shorts/ml-qnMHbtm4",
+    "https://www.youtube.com/shorts/1smdrGatOD0",
+    "https://www.youtube.com/shorts/OPoJk1mZwWA",
+    "https://www.youtube.com/shorts/8eKMtxenZyA",
+    "https://www.youtube.com/shorts/15K8qmcw4Vg",
+    "https://www.youtube.com/shorts/yYRE23hRt5U",
+    "https://www.youtube.com/shorts/jPy8p8G4-Nw",
+    "https://www.youtube.com/shorts/NOQYYFPgjC8",
+    "https://www.youtube.com/shorts/uuI0rlVwMzg",
+    "https://www.youtube.com/shorts/4kP3sFDhKbo",
+    "https://www.youtube.com/shorts/lKpqdIXAwso",
+    "https://www.youtube.com/shorts/TMtnYJ2s2iQ",
+    "https://www.youtube.com/shorts/tc-sYvHGg38",
+    "https://www.youtube.com/shorts/dbgyqzcDY6Q",
+    "https://www.youtube.com/shorts/6VFAinEgwU4",
+    "https://www.youtube.com/shorts/KMCLZNRrqdE",
+    "https://www.youtube.com/shorts/bFpTr8o58hs",
+    "https://www.youtube.com/shorts/k6Tu8tWMnAk",
+    "https://www.youtube.com/shorts/IGQ0z7M7Abw",
+    "https://www.youtube.com/shorts/adWeyRJstVM",
+    "https://www.youtube.com/shorts/q3hndjmjhK0",
+    "https://www.youtube.com/shorts/DR-uO5i7fWo",
+    "https://www.youtube.com/shorts/pKPx0nEq9-s",
+    "https://www.youtube.com/shorts/FYx2MQFOhRE",
+    "https://www.youtube.com/shorts/5axA2945538",
+    "https://www.youtube.com/shorts/rib9LHKGh_U",
+    "https://www.youtube.com/shorts/sljJtPUSyzE",
+    "https://www.youtube.com/shorts/vjS-DN_B2cY",
+    "https://www.youtube.com/shorts/XFtUN6Ofw3M",
+    "https://www.youtube.com/shorts/4PdMQMlpZjo",
+    "https://www.youtube.com/shorts/6NcdFNPq-00",
+    "https://www.youtube.com/shorts/ocvhS0KlSPM",
+    "https://www.youtube.com/shorts/m8mLbdTiklA",
+    "https://www.youtube.com/shorts/A-I5db0N2Yg",
+    "https://www.youtube.com/shorts/M7neN8V2EAM",
+    "https://www.youtube.com/shorts/Yt3P9gk2FF8",
+    "https://www.youtube.com/shorts/7beudIXxCIo",
+    "https://www.youtube.com/shorts/_kCjGAe4Dq8",
+    "https://www.youtube.com/shorts/ilZD6gQYFME"
+];
+
+
+/* =========================================================
+   EXTRACT YOUTUBE VIDEO ID
+========================================================= */
+
+function getYouTubeVideoId(url) {
+
+    if (!url) {
+        return null;
+    }
+
+    const match = url.match(
+        /(?:v=|\/shorts\/|\/live\/|youtu\.be\/)([A-Za-z0-9_-]{11})/
+    );
+
+    return match ? match[1] : null;
+}
+
+
+/* =========================================================
+   BUILD VIDEO CARDS
+========================================================= */
+
+function buildCards(
+    urls,
+    containerId,
+    label,
+    isShort
+) {
+
+    const container =
+        document.getElementById(containerId);
+
+    if (!container) {
+        return;
+    }
+
+    urls.forEach((url, index) => {
+
+        const vidId =
+            getYouTubeVideoId(url);
+
+        if (!vidId) {
+            console.warn(
+                "Invalid YouTube URL:",
+                url
+            );
+
+            return;
+        }
+
+
+        /*
+         * Shorts:
+         * Use hqdefault because it works reliably
+         * with vertical YouTube Shorts thumbnails.
+         *
+         * Long-form:
+         * Use maxresdefault.
+         */
+
+        const imgSrc = isShort
+
+            ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`
+
+            : `https://img.youtube.com/vi/${vidId}/maxresdefault.jpg`;
+
+
+        const article =
+            document.createElement("article");
+
+        article.className = "card";
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Each title element receives the exact
+         * video ID and original URL.
+         *
+         * This guarantees that the title returned
+         * belongs to THIS card only.
+         */
+
+        article.innerHTML = `
+
+            <a
+                href="${url}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="card-link"
+            >
+
+                <div class="thumbnail">
+
+                    <img
+                        src="${imgSrc}"
+                        alt="Xylem Learning Content"
+                        loading="lazy"
+                    >
+
+                    <div class="play-button">
+                        ▶
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <div class="card-content">
+
+                <p class="card-label ${isShort ? "short-card-label" : ""}">
+                    ${label}
+                </p>
+
+                <p
+                    class="card-title yt-title loading"
+                    data-original-url="${url}"
+                    data-vid-id="${vidId}"
+                    data-index="${index}"
+                >
+                    Loading title...
+                </p>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(article);
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER ALL CARDS
+========================================================= */
+
+buildCards(
+    longVideos,
+    "long-videos-grid",
+    "Long-Form Videos",
+    false
+);
+
+
+buildCards(
+    creativeShorts,
+    "creative-shorts-grid",
+    "Creative Shorts",
+    true
+);
+
+
+buildCards(
+    normalShorts,
+    "normal-shorts-grid",
+    "Short-Form Videos",
+    true
+);
+
+
+/* =========================================================
+   FETCH TITLE FROM NOEMBED
+========================================================= */
+
+async function fetchNoEmbedTitle(url) {
+
+    const endpoint =
+        `https://noembed.com/embed?url=${encodeURIComponent(url)}`;
+
+    const response =
+        await fetch(endpoint, {
+            method: "GET",
+            cache: "no-store"
+        });
+
+    if (!response.ok) {
+        throw new Error(
+            `Noembed HTTP ${response.status}`
+        );
+    }
+
+    const data =
+        await response.json();
+
+    if (
+        !data ||
+        !data.title
+    ) {
+        throw new Error(
+            "No title returned"
+        );
+    }
+
+    return data.title.trim();
+
+}
+
+
+/* =========================================================
+   FETCH TITLE FROM YOUTUBE OEMBED
+========================================================= */
+
+async function fetchYouTubeOEmbedTitle(url) {
+
+    const endpoint =
+        `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
+
+    const response =
+        await fetch(endpoint, {
+            method: "GET",
+            cache: "no-store"
+        });
+
+    if (!response.ok) {
+        throw new Error(
+            `YouTube oEmbed HTTP ${response.status}`
+        );
+    }
+
+    const data =
+        await response.json();
+
+    if (
+        !data ||
+        !data.title
+    ) {
+        throw new Error(
+            "YouTube did not return a title"
+        );
+    }
+
+    return data.title.trim();
+
+}
+
+
+/* =========================================================
+   TITLE FETCH WITH FALLBACKS
+========================================================= */
+
+async function getExactYouTubeTitle(
+    originalUrl,
+    videoId
+) {
+
+    /*
+     * IMPORTANT:
+     *
+     * First attempt uses the ORIGINAL URL.
+     *
+     * This is especially important for Shorts.
+     */
+
+    try {
+
+        const title =
+            await fetchNoEmbedTitle(
+                originalUrl
+            );
+
+        if (title) {
+            return title;
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Noembed original URL failed:",
+            videoId
+        );
+
+    }
+
+
+    /*
+     * Second attempt:
+     * YouTube's own oEmbed endpoint.
+     */
+
+    try {
+
+        const title =
+            await fetchYouTubeOEmbedTitle(
+                originalUrl
+            );
+
+        if (title) {
+            return title;
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "YouTube oEmbed failed:",
+            videoId
+        );
+
+    }
+
+
+    /*
+     * Third attempt:
+     * Convert ONLY the current video ID
+     * into its standard watch URL.
+     *
+     * This does NOT mix titles between cards.
+     */
+
+    const standardWatchUrl =
+        `https://www.youtube.com/watch?v=${videoId}`;
+
+
+    try {
+
+        const title =
+            await fetchNoEmbedTitle(
+                standardWatchUrl
+            );
+
+        if (title) {
+            return title;
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Noembed standard URL failed:",
+            videoId
+        );
+
+    }
+
+
+    /*
+     * Fourth attempt:
+     * YouTube oEmbed using standard watch URL.
+     */
+
+    try {
+
+        const title =
+            await fetchYouTubeOEmbedTitle(
+                standardWatchUrl
+            );
+
+        if (title) {
+            return title;
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "YouTube standard oEmbed failed:",
+            videoId
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   UPDATE ONE TITLE
+========================================================= */
+
+async function updateTitleElement(el) {
+
+    const originalUrl =
+        el.getAttribute(
+            "data-original-url"
+        );
+
+    const videoId =
+        el.getAttribute(
+            "data-vid-id"
+        );
+
+
+    if (
+        !originalUrl ||
+        !videoId
+    ) {
+        return;
+    }
+
+
+    try {
+
+        const title =
+            await getExactYouTubeTitle(
+                originalUrl,
+                videoId
+            );
+
+
+        /*
+         * CRITICAL:
+         *
+         * We update THIS exact element.
+         *
+         * No array index is used to assign titles.
+         *
+         * Therefore title #50 cannot accidentally
+         * appear on card #51.
+         */
+
+        if (title) {
+
+            el.textContent =
+                title;
+
+            el.classList.remove(
+                "loading",
+                "error"
+            );
+
+            el.classList.add(
+                "loaded"
+            );
+
+        } else {
+
+            el.textContent =
+                "Xylem Learning Video";
+
+            el.classList.remove(
+                "loading"
+            );
+
+            el.classList.add(
+                "error"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Title loading failed:",
+            videoId,
+            error
+        );
+
+        el.textContent =
+            "Xylem Learning Video";
+
+        el.classList.remove(
+            "loading"
+        );
+
+        el.classList.add(
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FETCH ALL TITLES
+========================================================= */
+
+async function fetchTitles() {
+
+    const elements =
+        Array.from(
+            document.querySelectorAll(
+                ".yt-title"
+            )
+        );
+
+
+    /*
+     * Process in small batches.
+     *
+     * This reduces the chance of the free
+     * oEmbed/noembed services rate-limiting
+     * the page when there are 200+ videos.
+     */
+
+    const batchSize = 5;
+
+
+    for (
+        let i = 0;
+        i < elements.length;
+        i += batchSize
+    ) {
+
+        const batch =
+            elements.slice(
+                i,
+                i + batchSize
+            );
+
+
+        await Promise.all(
+            batch.map(
+                element =>
+                    updateTitleElement(
+                        element
+                    )
+            )
+        );
+
+
+        /*
+         * Small delay between batches.
+         */
+
+        if (
+            i + batchSize <
+            elements.length
+        ) {
+
+            await new Promise(
+                resolve =>
+                    setTimeout(
+                        resolve,
+                        250
+                    )
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   START TITLE FETCHING
+========================================================= */
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        fetchTitles
+    );
+
+} else {
+
+    fetchTitles();
+
+}
+
+
+</script>
+
+</body>
+</html>
